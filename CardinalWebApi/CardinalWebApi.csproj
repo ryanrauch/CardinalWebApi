@@ -5,6 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20180706005136_01.cs" />
+    <Compile Remove="Migrations\20180706005136_01.Designer.cs" />
+    <Compile Remove="Migrations\20180706005614_01.cs" />
+    <Compile Remove="Migrations\20180706005614_01.Designer.cs" />
+    <Compile Remove="Migrations\20180706010444_01.cs" />
+    <Compile Remove="Migrations\20180706010444_01.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
@@ -14,6 +23,10 @@
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CardinalWebApiLibrary\CardinalWebApiLibrary.csproj" />
   </ItemGroup>
 
 </Project>
