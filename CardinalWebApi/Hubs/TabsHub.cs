@@ -10,13 +10,17 @@ namespace CardinalWebApi.Hubs
 {
     public class TabsHub : Hub
     {
-        //public async Task AddTab(Tab value)
-        //{
-        //    await Clients.All.SendAsync("AddTab", value);
-        //}
-        //public async Task RemoveTab(Tab value)
-        //{
-        //    await Clients.All.SendAsync("RemoveTab", value);
-        //}
+        public async Task AddTab(Tab item)
+        {
+            await Clients.All.SendAsync("AddTab", item.TabId, item.FirstName, item.LastName, item.TimestampOpened);
+        }
+        public async Task ReceiveMessage(string user, string msg)
+        {
+            await Clients.All.SendAsync("ReceiveMessage", user, msg);
+        }
+        public async Task SendMessage(string user, string msg)
+        {
+            await Clients.All.SendAsync("SendMessage", user, msg);
+        }
     }
 }

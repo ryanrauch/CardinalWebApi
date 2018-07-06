@@ -1,4 +1,5 @@
-﻿using System;
+﻿/*
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,18 +12,18 @@ namespace CardinalWebApi.Controllers
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
-        //private readonly IHubContext<TabsHub> _hubContext;
+        private readonly IHubContext<TabsHub> _hubContext;
 
-        public ValuesController()
-            //IHubContext<TabsHub> hubContext)
+        public ValuesController(
+            IHubContext<TabsHub> hubContext)
         {
-            //_hubContext = hubContext;
+            _hubContext = hubContext;
         }
         // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            //_hubContext.Clients.All.SendAsync("Send", "message");
+            _hubContext.Clients.All.SendAsync("ReceiveMessage", "test", "val2");
             return new string[] { "value1", "value2" };
         }
 
@@ -52,3 +53,4 @@ namespace CardinalWebApi.Controllers
         }
     }
 }
+*/

@@ -17,14 +17,14 @@ namespace CardinalWebApi.Controllers
     public class TabsController : ControllerBase
     {
         private readonly CardinalDbContext _context;
-        //private readonly IHubContext<TabsHub> _hubContext;
+        private readonly IHubContext<TabsHub> _hubContext;
 
         public TabsController(
-            //IHubContext<TabsHub> hubContext,
+            IHubContext<TabsHub> hubContext,
             CardinalDbContext context)
         {
             _context = context;
-            //_hubContext = hubContext;
+            _hubContext = hubContext;
         }
 
         // GET: api/Tabs
@@ -100,7 +100,7 @@ namespace CardinalWebApi.Controllers
             _context.Tabs.Add(tab);
             await _context.SaveChangesAsync();
 
-            //await _hubContext.Clients.All.SendAsync("PostTab", tab);
+            await _hubContext.Clients.All.SendAsync("AddTab", "000", tab.FirstName, tab.LastName, "333");
 
             return CreatedAtAction("GetTab", new { id = tab.TabId }, tab);
         }

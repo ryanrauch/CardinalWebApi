@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Serialization;
 
 namespace CardinalWebApi
 {
@@ -26,12 +27,32 @@ namespace CardinalWebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddCors(options => options.AddPolicy("CorsPolicy",
+            //builder =>
+            //{
+            //    builder.AllowAnyMethod().AllowAnyHeader()
+            //           .WithOrigins("http://localhost:58403/")
+            //           .AllowCredentials();
+            //}));
+            //services.AddHttpsRedirection(options =>
+            //{
+            //    options.RedirectStatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status307TemporaryRedirect;
+            //    options.HttpsPort = 5001;
+            //});
             services.AddMvc();
 
             services.AddDbContext<CardinalDbContext>(options =>
                 options.UseSqlServer(Configuration[Constants.CardinalDbConnection]));
 
-            services.AddSignalR();
+            services.AddSignalR(hubOptions => 
+                    {
+                        hubOptions.EnableDetailedErrors = true;
+                    })
+                    .AddJsonProtocol(options =>
+                    {
+                        options.PayloadSerializerSettings.ContractResolver =
+                                new CamelCasePropertyNamesContractResolver();
+                    });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +67,7 @@ namespace CardinalWebApi
             {
                 routes.MapHub<TabsHub>("/TabsHub");
             });
+            //app.UseCors("CorsPolicy");
             app.UseMvc();
         }
     }
