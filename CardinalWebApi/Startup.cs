@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CardinalWebApi.Hubs;
 using CardinalWebApi.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,6 +32,7 @@ namespace CardinalWebApi
             var connection = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=CardinalWebApiDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             services.AddDbContext<CardinalDbContext>(options => options.UseSqlServer(connection));
 
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +43,10 @@ namespace CardinalWebApi
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<TabsHub>("/TabsHub");
+            });
             app.UseMvc();
         }
     }
