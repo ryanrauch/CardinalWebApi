@@ -12,7 +12,7 @@ using System;
 namespace CardinalWebApi.Migrations
 {
     [DbContext(typeof(CardinalDbContext))]
-    [Migration("20180706010708_01")]
+    [Migration("20180706031042_01")]
     partial class _01
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,7 +22,7 @@ namespace CardinalWebApi.Migrations
                 .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("CardinalWebApi.Models.Employee", b =>
+            modelBuilder.Entity("CardinalWebApiLibrary.Models.Employee", b =>
                 {
                     b.Property<Guid>("EmployeeId")
                         .ValueGeneratedOnAdd();
@@ -40,12 +40,13 @@ namespace CardinalWebApi.Migrations
                     b.ToTable("Employees");
                 });
 
-            modelBuilder.Entity("CardinalWebApi.Models.Item", b =>
+            modelBuilder.Entity("CardinalWebApiLibrary.Models.Item", b =>
                 {
                     b.Property<Guid>("ItemId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .IsRequired();
 
                     b.Property<decimal>("Price");
 
@@ -54,7 +55,7 @@ namespace CardinalWebApi.Migrations
                     b.ToTable("Items");
                 });
 
-            modelBuilder.Entity("CardinalWebApi.Models.Tab", b =>
+            modelBuilder.Entity("CardinalWebApiLibrary.Models.Tab", b =>
                 {
                     b.Property<Guid>("TabId")
                         .ValueGeneratedOnAdd();
@@ -78,16 +79,17 @@ namespace CardinalWebApi.Migrations
                     b.ToTable("Tabs");
                 });
 
-            modelBuilder.Entity("CardinalWebApi.Models.TabHistory", b =>
+            modelBuilder.Entity("CardinalWebApiLibrary.Models.TabHistory", b =>
                 {
                     b.Property<Guid>("TabHistoryId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ActionText");
+                    b.Property<string>("ActionText")
+                        .IsRequired();
 
-                    b.Property<Guid?>("EmployeeId");
+                    b.Property<Guid>("EmployeeId");
 
-                    b.Property<Guid?>("TabId");
+                    b.Property<Guid>("TabId");
 
                     b.Property<DateTime>("Timestamp");
 
@@ -100,43 +102,43 @@ namespace CardinalWebApi.Migrations
                     b.ToTable("TabHistories");
                 });
 
-            modelBuilder.Entity("CardinalWebApi.Models.TabLineItem", b =>
+            modelBuilder.Entity("CardinalWebApiLibrary.Models.TabItem", b =>
                 {
                     b.Property<Guid>("TabId");
 
-                    b.Property<int>("Order")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<Guid?>("ItemId");
+                    b.Property<Guid>("ItemId");
 
                     b.Property<int>("Quantity");
 
-                    b.HasKey("TabId", "Order");
+                    b.HasKey("TabId", "ItemId");
 
                     b.HasIndex("ItemId");
 
                     b.ToTable("TabLineItems");
                 });
 
-            modelBuilder.Entity("CardinalWebApi.Models.TabHistory", b =>
+            modelBuilder.Entity("CardinalWebApiLibrary.Models.TabHistory", b =>
                 {
-                    b.HasOne("CardinalWebApi.Models.Employee", "Employee")
+                    b.HasOne("CardinalWebApiLibrary.Models.Employee", "Employee")
                         .WithMany()
-                        .HasForeignKey("EmployeeId");
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("CardinalWebApi.Models.Tab", "Tab")
+                    b.HasOne("CardinalWebApiLibrary.Models.Tab", "Tab")
                         .WithMany()
-                        .HasForeignKey("TabId");
+                        .HasForeignKey("TabId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("CardinalWebApi.Models.TabLineItem", b =>
+            modelBuilder.Entity("CardinalWebApiLibrary.Models.TabItem", b =>
                 {
-                    b.HasOne("CardinalWebApi.Models.Item", "Item")
+                    b.HasOne("CardinalWebApiLibrary.Models.Item", "Item")
                         .WithMany()
-                        .HasForeignKey("ItemId");
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("CardinalWebApi.Models.Tab", "Tab")
-                        .WithMany("Items")
+                    b.HasOne("CardinalWebApiLibrary.Models.Tab", "Tab")
+                        .WithMany()
                         .HasForeignKey("TabId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

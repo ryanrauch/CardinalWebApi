@@ -9,6 +9,7 @@ namespace CardinalWebApiLibrary
     {
         Opened = 1,
         Closed = 2,
-        Finalized = 3
+        Finalized = 3,
+        Denied = 4
     }
 }

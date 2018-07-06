@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 
@@ -29,7 +28,7 @@ namespace CardinalWebApi.Migrations
                 columns: table => new
                 {
                     ItemId = table.Column<Guid>(nullable: false),
-                    Description = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: false),
                     Price = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
@@ -60,9 +59,9 @@ namespace CardinalWebApi.Migrations
                 columns: table => new
                 {
                     TabHistoryId = table.Column<Guid>(nullable: false),
-                    ActionText = table.Column<string>(nullable: true),
-                    EmployeeId = table.Column<Guid>(nullable: true),
-                    TabId = table.Column<Guid>(nullable: true),
+                    ActionText = table.Column<string>(nullable: false),
+                    EmployeeId = table.Column<Guid>(nullable: false),
+                    TabId = table.Column<Guid>(nullable: false),
                     Timestamp = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
@@ -73,13 +72,13 @@ namespace CardinalWebApi.Migrations
                         column: x => x.EmployeeId,
                         principalTable: "Employees",
                         principalColumn: "EmployeeId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_TabHistories_Tabs_TabId",
                         column: x => x.TabId,
                         principalTable: "Tabs",
                         principalColumn: "TabId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -87,20 +86,18 @@ namespace CardinalWebApi.Migrations
                 columns: table => new
                 {
                     TabId = table.Column<Guid>(nullable: false),
-                    Order = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ItemId = table.Column<Guid>(nullable: true),
+                    ItemId = table.Column<Guid>(nullable: false),
                     Quantity = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TabLineItems", x => new { x.TabId, x.Order });
+                    table.PrimaryKey("PK_TabLineItems", x => new { x.TabId, x.ItemId });
                     table.ForeignKey(
                         name: "FK_TabLineItems_Items_ItemId",
                         column: x => x.ItemId,
                         principalTable: "Items",
                         principalColumn: "ItemId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_TabLineItems_Tabs_TabId",
                         column: x => x.TabId,

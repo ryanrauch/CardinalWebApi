@@ -5,20 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20180706005136_01.cs" />
-    <Compile Remove="Migrations\20180706005136_01.Designer.cs" />
-    <Compile Remove="Migrations\20180706005614_01.cs" />
-    <Compile Remove="Migrations\20180706005614_01.Designer.cs" />
-    <Compile Remove="Migrations\20180706010444_01.cs" />
-    <Compile Remove="Migrations\20180706010444_01.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
   </ItemGroup>
 
   <ItemGroup>

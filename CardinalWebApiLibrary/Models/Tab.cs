@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CardinalWebApi.Models
+namespace CardinalWebApiLibrary.Models
 {
     public class Tab
     {
@@ -17,7 +17,5 @@ namespace CardinalWebApi.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string CardToken { get; set; }
-        
-        public List<TabLineItem> Items { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CardinalWebApiLibrary.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,43 +25,50 @@ namespace CardinalWebApi.Models
             modelBuilder.Entity<Item>()
                         .Property(i => i.Price)
                         .IsRequired();
-
-            modelBuilder.Entity<TabHistory>()
-                        .HasKey(t => t.TabHistoryId);
-            //all other prop req
+            modelBuilder.Entity<Item>()
+                        .Property(i => i.Description)
+                        .IsRequired();
 
             modelBuilder.Entity<Tab>()
                         .HasKey(t => t.TabId);
 
-            modelBuilder.Entity<TabLineItem>()
-                        .HasKey(t => new { t.TabId, t.Order });
-            modelBuilder.Entity<TabLineItem>()
-                        .Property(t => t.Order)
-                        .ValueGeneratedOnAdd();
+            modelBuilder.Entity<TabItem>()
+                        .HasKey(t => new { t.TabId, t.ItemId });
+            modelBuilder.Entity<TabItem>()
+                        .HasOne(t => t.Tab)
+                        .WithMany()
+                        .HasForeignKey("TabId");
+            modelBuilder.Entity<TabItem>()
+                        .HasOne(t => t.Item)
+                        .WithMany()
+                        .HasForeignKey("ItemId");
+            modelBuilder.Entity<TabItem>()
+                        .Property(t => t.Quantity)
+                        .IsRequired();
 
-            //tablineitem.Item and .Quantity req
 
-            //modelBuilder.Entity<TabLineItem>()
-            //            .HasOne(t => t.Item)
-            //            .WithMany();
-
-            //modelBuilder.Entity<TabLineItem>()
-            //            .HasOne(t => t.Tab)
-            //            .WithMany();
-            //modelBuilder.Entity<Tab>()
-            //            .HasMany(t => t.Items)
-            //            .WithOne();
-
-            //modelBuilder.Entity<TabHistory>()
-            //            .HasOne(t => t.Tab)
-            //            .WithOne()
-            //            .HasForeignKey(k => k.TabId);
+            modelBuilder.Entity<TabHistory>()
+                        .HasKey(t => t.TabHistoryId);
+            modelBuilder.Entity<TabHistory>()
+                        .HasOne(t => t.Tab)
+                        .WithMany()
+                        .HasForeignKey("TabId");
+            modelBuilder.Entity<TabHistory>()
+                        .HasOne(t => t.Employee)
+                        .WithMany()
+                        .HasForeignKey("EmployeeId");
+            modelBuilder.Entity<TabHistory>()
+                        .Property(t => t.Timestamp)
+                        .IsRequired();
+            modelBuilder.Entity<TabHistory>()
+                        .Property(t => t.ActionText)
+                        .IsRequired();
         }
 
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<Tab> Tabs { get; set; }
-        public DbSet<TabLineItem> TabLineItems { get; set; }
+        public DbSet<TabItem> TabLineItems { get; set; }
         public DbSet<TabHistory> TabHistories { get; set; }
     }
 }
