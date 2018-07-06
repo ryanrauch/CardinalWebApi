@@ -28,9 +28,8 @@ namespace CardinalWebApi
         {
             services.AddMvc();
 
-            //var connection = @"Server=(localdb)\mssqllocaldb;Database=CardinalWebApi.CardinalWebApiDb;Trusted_Connection=True;ConnectRetryCount=0";
-            var connection = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=CardinalWebApiDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-            services.AddDbContext<CardinalDbContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<CardinalDbContext>(options =>
+                options.UseSqlServer(Configuration[Constants.CardinalDbConnection]));
 
             services.AddSignalR();
         }
