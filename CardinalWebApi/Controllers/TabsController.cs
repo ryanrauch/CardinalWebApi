@@ -123,7 +123,7 @@ namespace CardinalWebApi.Controllers
             _context.Tabs.Remove(tab);
             await _context.SaveChangesAsync();
 
-            return Ok(tab);
+            return Ok(true);
         }
 
         private bool TabExists(Guid id)
