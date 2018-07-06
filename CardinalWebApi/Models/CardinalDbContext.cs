@@ -23,7 +23,12 @@ namespace CardinalWebApi.Models
             modelBuilder.Entity<Item>()
                         .HasKey(i => i.ItemId);
             modelBuilder.Entity<Item>()
+                        .HasOne(i => i.ItemGroup)
+                        .WithMany()
+                        .HasForeignKey("ItemGroupId");
+            modelBuilder.Entity<Item>()
                         .Property(i => i.Price)
+                        .HasColumnType("decimal(6,2)")
                         .IsRequired();
             modelBuilder.Entity<Item>()
                         .Property(i => i.Description)
@@ -63,12 +68,19 @@ namespace CardinalWebApi.Models
             modelBuilder.Entity<TabHistory>()
                         .Property(t => t.ActionText)
                         .IsRequired();
+
+            modelBuilder.Entity<ItemGroup>()
+                        .HasKey(i => i.ItemGroupId);
+            modelBuilder.Entity<ItemGroup>()
+                        .Property(i => i.Description)
+                        .IsRequired();
         }
 
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<Tab> Tabs { get; set; }
-        public DbSet<TabItem> TabLineItems { get; set; }
+        public DbSet<TabItem> TabItems { get; set; }
         public DbSet<TabHistory> TabHistories { get; set; }
+        public DbSet<ItemGroup> ItemGroups { get; set; }
     }
 }

@@ -4,14 +4,16 @@ using CardinalWebApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CardinalWebApi.Migrations
 {
     [DbContext(typeof(CardinalDbContext))]
-    partial class CardinalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180706075730_02")]
+    partial class _02
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -129,7 +131,7 @@ namespace CardinalWebApi.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("TabItems");
+                    b.ToTable("TabLineItems");
                 });
 
             modelBuilder.Entity("CardinalWebApiLibrary.Models.Item", b =>

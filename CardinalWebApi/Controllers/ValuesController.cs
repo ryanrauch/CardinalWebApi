@@ -2,17 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CardinalWebApi.Hubs;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace CardinalWebApi.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
+        //private readonly IHubContext<TabsHub> _hubContext;
+
+        public ValuesController()
+            //IHubContext<TabsHub> hubContext)
+        {
+            //_hubContext = hubContext;
+        }
         // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()
         {
+            //_hubContext.Clients.All.SendAsync("Send", "message");
             return new string[] { "value1", "value2" };
         }
 
