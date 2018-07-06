@@ -109,6 +109,13 @@ namespace CardinalWebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTab([FromRoute] Guid id)
         {
+            // id is not being decoded into a proper Guid
+            // '%2F'  --  should be slash '/'
+            //if (!Guid.TryParse(gid, out Guid id))
+            //{
+            //    return NotFound();
+            //}
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

@@ -109,6 +109,78 @@ namespace CardinalWebApi.SeedData
                     Description = "Shots"
                 };
                 await _context.ItemGroups.AddAsync(shots);
+                var quick = new ItemGroup()
+                {
+                    ItemGroupId = Guid.NewGuid(),
+                    Description = "Quick"
+                };
+                await _context.ItemGroups.AddAsync(quick);
+                //premium-drinks
+                var p = new Item()
+                {
+                    ItemId = Guid.NewGuid(),
+                    Description = "Jameson",
+                    Price = 10.00M,
+                    ItemGroupId = premiumLiquor.ItemGroupId
+                };
+                await _context.Items.AddAsync(p);
+                var p2 = new Item()
+                {
+                    ItemId = Guid.NewGuid(),
+                    Description = "Deep Eddy Lemon",
+                    Price = 10.00M,
+                    ItemGroupId = premiumLiquor.ItemGroupId
+                };
+                await _context.Items.AddAsync(p2);
+                var p3 = new Item()
+                {
+                    ItemId = Guid.NewGuid(),
+                    Description = "Deep Eddy RubyRed",
+                    Price = 10.00M,
+                    ItemGroupId = premiumLiquor.ItemGroupId
+                };
+                await _context.Items.AddAsync(p3);
+                var p4 = new Item()
+                {
+                    ItemId = Guid.NewGuid(),
+                    Description = "Titos",
+                    Price = 10.00M,
+                    ItemGroupId = premiumLiquor.ItemGroupId
+                };
+                await _context.Items.AddAsync(p4);
+                var p5 = new Item()
+                {
+                    ItemId = Guid.NewGuid(),
+                    Description = "Grey Goose",
+                    Price = 10.00M,
+                    ItemGroupId = premiumLiquor.ItemGroupId
+                };
+                await _context.Items.AddAsync(p5);
+                var p6 = new Item()
+                {
+                    ItemId = Guid.NewGuid(),
+                    Description = "Patron",
+                    Price = 10.00M,
+                    ItemGroupId = premiumLiquor.ItemGroupId
+                };
+                await _context.Items.AddAsync(p6);
+                var p7 = new Item()
+                {
+                    ItemId = Guid.NewGuid(),
+                    Description = "Don Julio",
+                    Price = 10.00M,
+                    ItemGroupId = premiumLiquor.ItemGroupId
+                };
+                await _context.Items.AddAsync(p7);
+                var p8 = new Item()
+                {
+                    ItemId = Guid.NewGuid(),
+                    Description = "1942",
+                    Price = 25.00M,
+                    ItemGroupId = premiumLiquor.ItemGroupId
+                };
+                await _context.Items.AddAsync(p8);
+
                 //well drinks
                 var item = new Item()
                 {
@@ -142,6 +214,7 @@ namespace CardinalWebApi.SeedData
                     ItemGroupId = wellDrinks.ItemGroupId
                 };
                 await _context.Items.AddAsync(item4);
+
                 //domestic beer
                 var item5 = new Item()
                 {
@@ -167,6 +240,7 @@ namespace CardinalWebApi.SeedData
                     ItemGroupId = domesticBeer.ItemGroupId
                 };
                 await _context.Items.AddAsync(item7);
+
                 //import beer
                 var item8 = new Item()
                 {
@@ -185,6 +259,20 @@ namespace CardinalWebApi.SeedData
                 };
                 await _context.Items.AddAsync(item9);
                 await _context.SaveChangesAsync();
+
+                var rnd = new RandomNameGenerator();
+                List<String> drinkNames = rnd.DrinkNames;
+                foreach(string d in drinkNames)
+                {
+                    var dr = new Item()
+                    {
+                        ItemId = Guid.NewGuid(),
+                        Description = d,
+                        Price = 7.50M,
+                        ItemGroupId = quick.ItemGroupId
+                    };
+                    await _context.Items.AddAsync(dr);
+                }
             }
 
             if (_context.Tabs.Count() == 0)

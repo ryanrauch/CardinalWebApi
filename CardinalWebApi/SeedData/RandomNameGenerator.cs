@@ -130,5 +130,24 @@ namespace CardinalWebApi.SeedData
             "Kimberly",
             "Deborah"
         };
+
+        public List<String> DrinkNames = new List<string>
+        {
+            "Irish Car Bomb",
+            "Hurricane",
+            "Negroni",
+            "Betty",
+            "Tequila Sunrise",
+            "Electric Lemonade",
+            "Mojito",
+            "Margarita",
+            "Manhattan",
+            "Seven and Seven",
+            "Sidecar",
+            "Boulevardier",
+            "Old Fashioned",
+            "Dry Gin Martini",
+            "Daiquiri"
+        };
     }
 }
